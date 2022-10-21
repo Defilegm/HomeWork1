@@ -14,10 +14,6 @@
         }
         Console.WriteLine("Некорректный ввод!");
     }
-    
-
 }
-
-
 int b = check(); 
 Console.WriteLine($"Вторая цифра: {b / 10 % 10}");
