@@ -1,37 +1,26 @@
-﻿int check()
+﻿double number()
 {
     while(true)
     {
         Console.WriteLine("Введите число: ");
         string number = Console.ReadLine();
-        if(int.TryParse(number, out int numberint))
+        if(double.TryParse(number, out double numberint))
         {
             return numberint;
-            
         }
     Console.WriteLine("Некорректный ввод!");
-    }
-}
-int number = check();  
 
-int numberdouble = 0;
-if (number / 100 > 0)
-{
-    while (number / 100 > 0)
-    {
-    numberdouble = number;
-    number = number / 10;
+    }
     
-
-    }
-Console.WriteLine($"Третья цифра заданного числа: {numberdouble%10}");
 }
-else
+double numberint = number();
+double [] cube = new double[Convert.ToInt32(numberint)];
+int i = 1;
+
+while(numberint > 0)
 {
-    Console.WriteLine("В заданном числе нет третьей цифры!");
+    cube[i-1] = Math.Pow(i,3);
+    numberint = numberint - 1;
+    i++;    
 }
-
-
-
-
-
+Console.Write(string.Join(",",cube));
