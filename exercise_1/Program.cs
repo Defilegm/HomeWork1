@@ -15,14 +15,19 @@
         Console.WriteLine("Некорректный ввод!");
     }
 }
-int b = check();
 
-if (b % 10 == b / 10000 && (b % 100) / 10 == (b / 1000) % 10)
+void checknumber()
 {
-    Console.WriteLine($"Число:{b} является палиндромом");
+    int b = check();
+    if (b % 10 == b / 10000 && (b % 100) / 10 == (b / 1000) % 10)
+{
+     Console.WriteLine($"Число:{b} является палиндромом");
 
 }
 else
 {
     Console.WriteLine($"Число:{b} не является палиндромом");
 }
+}
+checknumber();
+
