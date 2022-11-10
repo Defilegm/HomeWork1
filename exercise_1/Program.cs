@@ -1,29 +1,25 @@
-﻿int check(string x)
+﻿int[] array()
 {
-    while(true)
-    { 
-        if (int.TryParse(x, out int result))
-        {
-        return result;
-        }
-        Console.WriteLine("Введите целое число!");
-        x = Console.ReadLine();
+    Random rnd = new Random();
+    int [] array = new int [rnd.Next(1,10)];
+    for (int i = 0; i < array.Length; i++)
+    {
+        array[i] = rnd.Next(100, 1000);
     }
-    
+    return array;
 }
 
-void expo()
+int [] array1 = array();
+
+int plusnumbers()
 {
-    Console.WriteLine("Введите первое число");
-    int a = check(Console.ReadLine());
-    Console.WriteLine("Введите второе число число");
-    int b = check(Console.ReadLine());
-    int result = a;
-    while (b > 1)
+    int count = 0;
+    for (int i = 0; i < array1.Length; i++)
     {
-        result =  result * a;
-        b = b - 1;
+        if(array1[i] % 2 == 0){ count ++;};
     }
-    Console.WriteLine(result);
+    return count;
 }
-expo();
+Console.WriteLine(string.Join(" ",array1));
+Console.WriteLine($"Кол-во положительных элементов : {plusnumbers()}");
+
