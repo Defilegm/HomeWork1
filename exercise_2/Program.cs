@@ -1,23 +1,33 @@
-﻿int[] array()
+﻿/* Задача 2: Напишите программу, которая найдёт точку пересечения двух прямых,
+             заданных уравнениями y = k1 * x + b1, y = k2 * x + b2; 
+             значения b1, k1, b2 и k2 задаются пользователем.
+ */
+double check(string x)
 {
-    Random rnd = new Random();
-    int [] array = new int [rnd.Next(1,10)];
-    for (int i = 0; i < array.Length; i++)
+    while (true)
     {
-        array[i] = rnd.Next(-100, 101);
+        if (double.TryParse(x, out double result)) { return result; }
+        Console.WriteLine("Некорректный ввод, введите число!");
+        x = Console.ReadLine();
     }
-    return array;
-}
-int[] array1 = array();
+} 
 
-int checkpos()
+string f(double b1, double k1, double b2, double k2)
 {
-    int summ  = 0;
-    for (int i = 0; i < array1.Length; i++)
-    {
-        if (i % 2 != 0){summ = summ + array1[i];}
-    }
-    return summ;
+    double x=(b2-b1)/(k1-k2); 
+    double y= k1*(b2-b1)/(k1-k2)+b1;
+    string result = $"({x};{y})";
+    return result;
 }
-Console.WriteLine(string.Join(" ", array1));
-Console.Write($"Сумма элементов, стоящие на нечетных позициях: {checkpos()}");
+
+Console.WriteLine("Введите B1: ");
+double b1 = check(Console.ReadLine());
+Console.WriteLine("Введите K1: ");
+double k1 = check(Console.ReadLine());
+Console.WriteLine("Введите B2: ");
+double b2 = check(Console.ReadLine());
+Console.WriteLine("Введите K2: ");
+double k2 = check(Console.ReadLine());
+
+
+Console.WriteLine(f(b1,k1,b2,k2));
