@@ -1,33 +1,50 @@
-﻿/* Задача 2: Напишите программу, которая найдёт точку пересечения двух прямых,
-             заданных уравнениями y = k1 * x + b1, y = k2 * x + b2; 
-             значения b1, k1, b2 и k2 задаются пользователем.
- */
-double check(string x)
-{
-    while (true)
-    {
-        if (double.TryParse(x, out double result)) { return result; }
-        Console.WriteLine("Некорректный ввод, введите число!");
-        x = Console.ReadLine();
-    }
-} 
+﻿/* Задача 2. Напишите программу, которая на вход принимает
+позиции элемента в двумерном массиве,
+и возвращает значение этого элемента или же указание,
+что такого элемента нет.
 
-string f(double b1, double k1, double b2, double k2)
+Например, задан массив:
+
+1 4 7 2
+
+5 9 2 3
+
+8 4 2 4
+
+17 -> такого числа в массиве нет */
+int [,] array()
 {
-    double x=(b2-b1)/(k1-k2); 
-    double y= k1*(b2-b1)/(k1-k2)+b1;
-    string result = $"({x};{y})";
-    return result;
+    int m = new Random().Next(0,10);
+    int n = new Random().Next(1,10);
+    int [,] array = new int[m,n];
+    return array; 
 }
+int [,] arraynew = array();
 
-Console.WriteLine("Введите B1: ");
-double b1 = check(Console.ReadLine());
-Console.WriteLine("Введите K1: ");
-double k1 = check(Console.ReadLine());
-Console.WriteLine("Введите B2: ");
-double b2 = check(Console.ReadLine());
-Console.WriteLine("Введите K2: ");
-double k2 = check(Console.ReadLine());
+int [,] outputarray(int [,] arr)
+{
+    for (int i = 0; i < arr.Length / (arr.GetUpperBound(1)+1);i++)
+    {
+        for ( int j = 0; j < arr.GetUpperBound(1)+1; j++)
+        {
+            arr[i,j] = new Random().Next(0,10);
+            Console.Write($"{arr[i,j]}\t");
+        }
+    Console.WriteLine();
+    
+    }
+    return arr;
+
+}
+outputarray(arraynew);
+
+int input(int i, int j, int [,] arr)
+{
+    if(i >= arr.Length / (arr.GetUpperBound(1)+1) || j>= arr.GetUpperBound(1)+1){Console.WriteLine("Элемента с такой позицией не существует!"); }
+    else {Console.WriteLine($"Элементс позицией {i},{j} = {arr[i,j]}");}
+    return i;
+}
+input(6,6,arraynew);
 
 
-Console.WriteLine(f(b1,k1,b2,k2));
+

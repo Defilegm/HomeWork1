@@ -1,73 +1,56 @@
-﻿
-/* Задача 3. (*) Найдите максимальное значение в матрице по каждой строке, получите сумму этих максимумов. 
-Затем найдите минимальное значение по каждой колонке,получите сумму этих минимумов. 
-Затем из первой суммы (с максимумами) вычтите вторую сумму(с минимумами) */
+﻿/* Задача 3. Задайте двумерный массив из целых чисел. 
+             Найдите среднее арифметическое элементов в каждом столбце.
 
-int [,] array() // cоздаем массив
+            Например, задан массив:
+            1 4 7 2
+            5 9 2 3
+            8 4 2 4
+            Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3. */
+
+
+
+
+int [,] array () // создаем массив
 {
+    int m = new Random().Next(1,6);
     int n = new Random().Next(1,6);
-    int [,] array = new int [n,n];
+    int [,] array = new int [m,n];
     return array;
 }
 
-
-int [,] printarray (int [,] array) //заполняем  и выводим массив
+int [,] outputarray(int[,]arr)   // заполняем и выводим массив
 {
-    int rows = array.GetUpperBound(0)+1;
-    int columns = array.Length / rows;
-    for(int i=0; i<rows; i++)
+    for (int i = 0; i < arr.Length / (arr.GetUpperBound(1)+1);i++)
     {
-        for (int j=0; j<columns;j++)
+        for(int j=0; j<arr.GetUpperBound(1)+1; j++)
         {
-            array[i,j] = new Random().Next(1,10);
-            Console.Write($"{array[i,j]}\t");
-        
+            arr[i,j] = new Random().Next(0,10);
+            Console.Write($"{arr[i,j]}\t");
         }
     Console.WriteLine();
-    
-    
     }
-    return array;
+    return arr;
 }
 
-int [,] newarray = printarray(array());
+int [,] newarray = outputarray(array());
 
-int maxinrows( int [,] arrays,int max = 0,int summ = 0,int i = 0) // Находим сумму максимальных элементов с строках
+double avg(int [,] arr) // находим среднее арифметиское каждого столбца
 {
-    while(i < arrays.GetUpperBound(0)+1)
+    int summ = 0;
+    double avg = 0;
+    for (int j = 0; j < (arr.GetUpperBound(1)+1);j++)
     {
-        max = arrays[i,0];
-        for(int j = 0 ; j<arrays.Length/(arrays.GetUpperBound(0)+1);j++)
+        for ( int i = 0 ; i < arr.Length/(arr.GetUpperBound(1)+1);i++)
         {
-            if(arrays[i,j] > max) max = arrays[i,j];
+            summ = summ + arr[i,j];
         }
-        summ = summ + max;
-        i++;
-        return maxinrows( newarray,max,summ,i);
+        avg = (double)summ / (arr.Length / (arr.GetUpperBound(1)+1));
+        Console.WriteLine($"Среднее арифметическое {j+1}-ого столбца = {avg}");
+        avg = 0;
+        summ = 0;
     }
-    return summ;
+    return avg;
 
 }
-Console.WriteLine($"сумма максимумов в строках = {maxinrows(newarray)}");
-
-int minincol( int [,] arrays,int min = 0,int summ = 0,int i = 0)// Находим сумму мин элементов с столбцах
-{
-    while(i < arrays.Length/(arrays.GetUpperBound(0)+1))
-    {
-        min = arrays[0,i];
-        for(int j = 0 ; j<arrays.GetUpperBound(0)+1;j++)
-        {
-            if(arrays[j,i] < min) min = arrays[j,i];
-        }
-        summ = summ + min;
-        i++;
-        return minincol(newarray,min,summ,i);
-    }
-    return summ;
-
-}
-
-Console.WriteLine($"сумма минимумов в столбцах = {minincol(newarray)}");
-Console.WriteLine($"разность макс строк и мин столбцов = {maxinrows(newarray) - minincol(newarray)}");
-
+avg(newarray);
 
