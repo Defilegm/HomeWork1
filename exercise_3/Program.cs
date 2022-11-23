@@ -1,56 +1,72 @@
-﻿/* Задача 3. Задайте двумерный массив из целых чисел. 
-             Найдите среднее арифметическое элементов в каждом столбце.
+﻿/* Задача 3: Задайте две матрицы. Напишите программу, 
+   которая будет находить произведение двух матриц.
+Например, даны 2 матрицы:
+2 4 | 3 4        
+3 2 | 3 3  
+Результирующая матрица будет:
+18 20
+15 18
 
-            Например, задан массив:
-            1 4 7 2
-            5 9 2 3
-            8 4 2 4
-            Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3. */
+*/
 
 
 
-
-int [,] array () // создаем массив
+int [,] createarray(int m,int n) // создаем пустой массив
 {
-    int m = new Random().Next(1,6);
-    int n = new Random().Next(1,6);
     int [,] array = new int [m,n];
     return array;
-}
+} 
 
-int [,] outputarray(int[,]arr)   // заполняем и выводим массив
-{
-    for (int i = 0; i < arr.Length / (arr.GetUpperBound(1)+1);i++)
+ int [,] fillarray (int [,] arr)   // заполняем массив
+ {
+    for(int i = 0; i<arr.GetLength(0);i++)
     {
-        for(int j=0; j<arr.GetUpperBound(1)+1; j++)
+        for(int j = 0; j<arr.GetUpperBound(1)+1;j++)
         {
-            arr[i,j] = new Random().Next(0,10);
+            arr[i,j]=new Random().Next(1,5);
             Console.Write($"{arr[i,j]}\t");
         }
+        Console.WriteLine();
+    }
     Console.WriteLine();
-    }
     return arr;
-}
+ }
 
-int [,] newarray = outputarray(array());
+Console.WriteLine("Первый массив: ");
+int [,] arrfisrt = fillarray(createarray(2,3));
+Console.WriteLine("Второй массив: ");
+int [,] arrsecond = fillarray(createarray(3,2));
 
-double avg(int [,] arr) // находим среднее арифметиское каждого столбца
+
+int [,] multiplyarrays(int [,] arr1, int[,] arr2)  // перемножаем массивы
 {
-    int summ = 0;
-    double avg = 0;
-    for (int j = 0; j < (arr.GetUpperBound(1)+1);j++)
+    if(arr1.GetUpperBound(1)+1 == arr2.GetLength(0)) // Проверка кол-ва столбцов 1ого массива с кол-вом строк 2ого массива
     {
-        for ( int i = 0 ; i < arr.Length/(arr.GetUpperBound(1)+1);i++)
-        {
-            summ = summ + arr[i,j];
-        }
-        avg = (double)summ / (arr.Length / (arr.GetUpperBound(1)+1));
-        Console.WriteLine($"Среднее арифметическое {j+1}-ого столбца = {avg}");
-        avg = 0;
-        summ = 0;
-    }
-    return avg;
-
+        Console.WriteLine("Третий массив: ");
+        int [,] arr3 = new int [arr1.GetLength(0),arr2.GetUpperBound(1)+1];
+        int summ = 0;
+        int f = 0;
+            for (int i = 0; i<arr3.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr3.GetUpperBound(1)+1; j ++)
+                {
+                    while( f < arr2.GetLength(0))
+                    {
+                        summ = summ + arr1[i,f]*arr2[f,j];
+                        f++;
+                    }
+                    arr3[i,j] = summ;
+                    f = 0;
+                    summ = 0;
+                    Console.Write($"{arr3[i,j]}\t");
+                }
+                Console.WriteLine();
+            }
+            
+            return arr3;
+        } 
+    Console.WriteLine("ERROR :Кол-во столбцов первой матрицы, должны быть равны кол-ву строк второй матрицы!");
+    return arr1;
+    
 }
-avg(newarray);
-
+multiplyarrays(arrfisrt,arrsecond);

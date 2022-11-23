@@ -1,50 +1,72 @@
-﻿/* Задача 1. Задайте двумерный массив размером m×n, 
-заполненный случайными вещественными числами.
+﻿/* Задача 1: Задайте двумерный массив. Напишите программу, 
+которая упорядочит по убыванию элементы каждой строки двумерного массива.
+Например, задан массив:
+1 4 7 2
+5 9 2 3
+8 4 2 4
+В итоге получается вот такой массив:
+7 4 2 1
+9 5 3 2
+8 4 4 2 */
 
-m = 3, n = 4.
 
-0,5 7 -2 -0,2
-
-1 -3,3 8 -9,9
- 
-8 7,8 -7,1 9   */
-
-
-
-double random()   //создаем генератор случайных вещественных чисел
+int [,] array()   // cоздаем пустой массив
 {
-    double rnd =  new Random().Next(0,1000);
-    rnd = rnd / 10;
-    return rnd;
-}
-
-double [,] array(int m,int n)  // cоздаем массив и заполняем его
-{
-    double [,] array = new double[m,n];
-    for (int i = 0; i< m; i ++)
-    {
-        for(int j = 0; j < n; j++)
-        {
-            array[i,j] = random();
-        }
-    }
+    int m = new Random().Next(1,6);
+    int n = new Random().Next(1,6);
+    int [,] array = new int [m,n];
     return array;
 }
+int [,] newarray = array();
 
-
-
-
-double [,] printarray(double [,] array)
+int [,] printarray(int [,] arr) // заполняем и выводим массив;
 {
-    for(int i = 0; i< array.Length / (array.GetUpperBound(1)+1); i++)
+    for (int i = 0; i<arr.GetLength(0); i++)
     {
-        for (int j = 0; j<(array.GetUpperBound(1)+1); j++)
-        {  
-            Console.Write($"{array[i,j]}\t");
+        for(int j = 0; j < arr.GetUpperBound(1)+1; j++)
+        {
+            arr[i,j] = new Random().Next(1,10);
+            Console.Write($"{arr[i,j]}\t");
         }
         Console.WriteLine();
     }
-    return array;
+    return arr;
 }
-printarray(array(5,6));
 
+int [,] newarr = printarray(newarray);
+
+int [,] sortarray(int [,] arr) //сортируем  массив
+{
+    int current = 0;
+    for (int i = 0; i<arr.GetLength(0); i++)
+    {
+        for(int j = 0; j < arr.GetUpperBound(1)+1; j++)
+        {
+            int a = j;
+            while(a > 0)
+            {
+                if (arr[i,a] > arr[i,a-1]){ current = arr[i,a-1]; arr[i,a-1] = arr[i,a]; arr[i,a] = current; a = a - 1;}
+                else{ break;}
+            }
+        }
+    }
+    return arr;
+}
+Console.WriteLine();
+sortarray(newarr);
+Console.WriteLine();
+
+int [,] printarrays(int [,] arr) // выводим отсортированный массив;
+{
+    for (int i = 0; i<arr.GetLength(0); i++)
+    {
+        for(int j = 0; j < arr.GetUpperBound(1)+1; j++)
+        {
+    
+            Console.Write($"{arr[i,j]}\t");
+        }
+        Console.WriteLine();
+    }
+    return arr;
+}
+printarrays(newarr);
